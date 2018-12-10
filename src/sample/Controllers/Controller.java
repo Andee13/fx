@@ -1,5 +1,6 @@
-package sample;
+package sample.Controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Iterator;
@@ -8,15 +9,18 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.model.ArrayTaskList;
 import sample.model.Task;
-import sample.model.TaskList;
+import sample.Main;
+import javafx.scene.image.ImageView;
 
 public class Controller {
-    private ObservableList<Task>  tasksFx = FXCollections.observableArrayList();
+
 
     @FXML
     private ResourceBundle resources;
@@ -24,6 +28,18 @@ public class Controller {
     @FXML
     private URL location;
 
+
+    @FXML
+    private ImageView AddTasksLabel;
+
+    @FXML
+    private ImageView EditTasksLabel;
+
+    @FXML
+    private ImageView CalendarTasks;
+
+    @FXML
+    private ImageView AllTasksLabel;
     @FXML
     private TableColumn<Task, Date> StartDate;
 
@@ -31,45 +47,42 @@ public class Controller {
     private TableColumn<Task, String> Active;
 
     @FXML
-    private TableColumn<Task, Integer> IntervalBetween;
-
+    private TableColumn<Task, Integer> Interval;
     @FXML
     private TableColumn<Task, String> TitleColumn;
-
     @FXML
     private TableView<Task> MainTablewithTasks;
-
     @FXML
-    private TableColumn<Task, String> EndDate;
+    private TableColumn<Task, Date> End;
+
+    private ObservableList<Task>  tasksFx = FXCollections.observableArrayList();
 
     @FXML
     void initialize() {
-        initData();
-        ObservableList<Task> data = MainTablewithTasks.getItems();
+
+        //ObservableList<Task> data = MainTablewithTasks.getItems();
         StartDate.setCellValueFactory(new PropertyValueFactory<Task, Date>("start"));
-        EndDate.setCellValueFactory(new PropertyValueFactory<Task, String>("EndDate"));
+        End.setCellValueFactory(new PropertyValueFactory<Task, Date>("End"));
         TitleColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("title"));
-        IntervalBetween.setCellValueFactory(new PropertyValueFactory<Task, Integer>("Interval"));
+        Interval.setCellValueFactory(new PropertyValueFactory<>("Interval"));
         Active.setCellValueFactory(new PropertyValueFactory<Task, String>("active"));
-
-
+        initData();
 
         MainTablewithTasks.setItems(tasksFx);
 
+        AddTasksLabel.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasks.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+
     }
     private void initData(){
-        TaskList taskList = new ArrayTaskList();
-
-        taskList.add(new Task("Reading", new Date()));
-        taskList.add(new Task("Programming", new Date(), new Date(new Date().getTime()+1000000), 1000));
-        Task task = new Task("Walking", new Date());
-        task.setActive(true);
-        taskList.add(task);
-        taskList.add(new Task("Playing games", new Date(), new Date(new Date().getTime()+1000000), 10000));
-        for(Task t: taskList) {
-            System.out.println(t.getEndTime());
+        for(Task t: Main.taskList){
             tasksFx.add(t);
         }
-
     }
 }
