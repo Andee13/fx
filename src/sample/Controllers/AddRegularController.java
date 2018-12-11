@@ -20,9 +20,6 @@ public class AddRegularController {
     private URL location;
 
     @FXML
-    private Button AddTasks;
-
-    @FXML
     private Button CanccelButton;
 
     @FXML
@@ -47,6 +44,9 @@ public class AddRegularController {
     private TextArea titleOfTask;
 
     @FXML
+    private Button AddTasksButton;
+
+    @FXML
     private ImageView CalendarTasks;
 
     @FXML
@@ -54,8 +54,31 @@ public class AddRegularController {
 
     @FXML
     void initialize() {
-
-    CanccelButton.setOnMouseClicked(e ->{
+        AllTasksLabel.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        EditTasksLabel.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        CalendarTasks.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        CanccelButton.setOnMouseClicked(e ->{
             try {
                 Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
             } catch (IOException ex){
@@ -63,10 +86,28 @@ public class AddRegularController {
             }
         });
 
-        AllTasksLabel.setOnMouseClicked(e ->{
+        /*AllTasksLabel.setOnMouseClicked(e ->{
             try {
                 Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
             } catch (IOException ex){
+                System.out.println(ex);
+            }
+        });*/
+        AddTasksButton.setOnMouseClicked(e ->{
+            try {
+            //Write code for tasks adding
+
+                Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        ChoseIrregular.setOnMouseClicked(e ->{
+            try {
+
+
+                Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksIrregular.fxml"))));
+            } catch (IOException ex) {
                 System.out.println(ex);
             }
         });

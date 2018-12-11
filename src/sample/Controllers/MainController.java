@@ -3,7 +3,6 @@ package sample.Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -14,12 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sample.model.ArrayTaskList;
 import sample.model.Task;
 import sample.Main;
 import javafx.scene.image.ImageView;
 
-public class Controller {
+public class MainController {
 
 
     @FXML
@@ -72,7 +70,31 @@ public class Controller {
 
         AddTasksLabel.setOnMouseClicked(e -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasks.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        /*AllTAsksLabel.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });*/
+        EditTasksLabel.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        CalendarTasks.setOnMouseClicked(e -> {
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
                 Main.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
