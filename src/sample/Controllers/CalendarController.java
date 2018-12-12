@@ -4,6 +4,9 @@ package sample.Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXTimePicker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +16,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import sample.Main;
 
 public class CalendarController {
@@ -60,14 +65,13 @@ public class CalendarController {
     private TableColumn<?, ?> End;
 
     @FXML
-    private TextField startTime;
-
-    @FXML
-    private TextField endTime;
-
-    @FXML
     private TableColumn<?, ?> Interval;
 
+    @FXML
+    private JFXTimePicker StartTime;
+
+    @FXML
+    private JFXTimePicker EndTime;
 
     @FXML
     void initialize() {
@@ -97,8 +101,15 @@ public class CalendarController {
         });
 
         showButton.setOnMouseClicked(e->{
-            System.out.println(startTime.getText());
+            if(StartTime.getValue() != null && EndTime.getValue() != null && dataEnd.getValue() != null && dataStart.getValue() != null ){
+                //update table
+            }
+            System.out.println(StartTime.getValue());
+            System.out.println(EndTime.getValue());
+            System.out.println(dataEnd.getValue());
             System.out.println(dataStart.getValue());
         });
+
+
     }
 }
