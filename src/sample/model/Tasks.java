@@ -8,7 +8,7 @@ public class Tasks {
             throw new IllegalArgumentException("null argumet");
         }
         if(start.after(end)) {
-            throw new IllegalArgumentException("Unpropriate time");
+            throw new IllegalArgumentException("Unappropriate time");
         }
        
        Iterator<Task> iterator =  tasks.iterator();

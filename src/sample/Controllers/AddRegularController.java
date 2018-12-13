@@ -2,6 +2,9 @@ package sample.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXTimePicker;
@@ -18,6 +21,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import sample.Main;
+import sample.model.Task;
+import sample.model.Tasks;
 
 public class AddRegularController {
     ObservableList<String> timeInterval = FXCollections.observableArrayList("Days", "Hours", "Minutes");
@@ -82,6 +87,7 @@ public class AddRegularController {
         });
 
 
+
         AllTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
@@ -106,6 +112,17 @@ public class AddRegularController {
                 System.out.println(ex);
             }
         });
+
+
+
+
+
+
+
+
+
+
+
         CanccelButton.setOnMouseClicked(e ->{
             try {
                 Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
@@ -113,14 +130,48 @@ public class AddRegularController {
                 System.out.println(ex);
             }
         });
-
-
         AddTasksButton.setOnMouseClicked(e ->{
             try {
-            //Write code for tasks adding
+                String title = titleOfTask.getText().trim();
+                if(TimeStart.getValue() != null && TimeEnd.getValue() != null && DataEnd.getValue() != null && dataStart.getValue() != null
+                        && titleOfTask.getText() != null && title.length() != 0) {
+                    StringBuffer bufferStart = new StringBuffer();
+                    StringBuffer bufferEnd = new StringBuffer();
+                    bufferStart.append(dataStart.getValue()).append(" ").append(TimeStart.getValue());
+                    bufferEnd.append(DataEnd.getValue()).append(" ").append(TimeEnd.getValue());
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+
+
+                    Date StartD;
+                    Date EndD;
+                    System.out.println(bufferStart);
+                    System.out.println(bufferEnd);
+                    StartD = simpleDateFormat.parse(bufferStart.toString());
+                    EndD = simpleDateFormat.parse(bufferEnd.toString());
+                    String intervalStr = ChoiseBoxRegular.getValue();
+                    int Interval;
+                    switch(intervalStr){
+                        case "Days":
+                            Interval = 86400;
+                            break;
+                        case "Hours":
+                            Interval = 3600;
+                            break;
+                        case "Minutes":
+                            Interval = 60;
+                            break;
+                            default: Interval = 0;
+                            break;
+                    }
+                    Task task = new Task(title, StartD,EndD, Interval);
+                    task.setActive(true);
+                    Main.taskList.add(task);
+                    System.out.println(StartD);
+                    System.out.println(EndD);
+                }
                 Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
-            } catch (IOException ex) {
+            } catch (IOException |ParseException ex ) {
                 System.out.println(ex);
             }
         });

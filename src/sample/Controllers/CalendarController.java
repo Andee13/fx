@@ -3,8 +3,12 @@ package sample.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
-
+import java.util.SortedMap;
+import java.util.Set;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +23,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import sample.Main;
+import sample.model.Task;
+import sample.model.Tasks;
+
+import static sample.model.Tasks.calendar;
 
 public class CalendarController {
 
@@ -104,10 +112,30 @@ public class CalendarController {
             if(StartTime.getValue() != null && EndTime.getValue() != null && dataEnd.getValue() != null && dataStart.getValue() != null ){
                 //update table
             }
-            System.out.println(StartTime.getValue());
-            System.out.println(EndTime.getValue());
-            System.out.println(dataEnd.getValue());
-            System.out.println(dataStart.getValue());
+            StringBuffer bufferStart = new StringBuffer();
+            StringBuffer bufferEnd = new StringBuffer();
+            bufferStart.append(dataStart.getValue()).append(" ").append(StartTime.getValue());
+            bufferEnd.append(dataEnd.getValue()).append(" ").append(EndTime.getValue());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+                Date StartD;
+                Date EndD;
+                System.out.println(bufferStart);
+                System.out.println(bufferEnd);
+                StartD = simpleDateFormat.parse(bufferStart.toString());
+                EndD = simpleDateFormat.parse(bufferEnd.toString());
+                SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar( Main.taskList, StartD, EndD);
+
+
+
+                System.out.println(StartD);
+                System.out.println(EndD);
+            } catch (ParseException ex){
+                System.out.println(ex);
+            }
+
+
+
         });
 
 

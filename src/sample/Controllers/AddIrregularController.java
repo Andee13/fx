@@ -2,14 +2,21 @@ package sample.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import sample.Main;
+import sample.model.Task;
 
 public class AddIrregularController {
 
@@ -21,6 +28,12 @@ public class AddIrregularController {
 
     @FXML
     private Button irregularTasks;
+
+    @FXML
+    private JFXTimePicker TaskTime;
+
+    @FXML
+    private DatePicker TaskDate;
 
     @FXML
     private Button REgularButton;
@@ -48,9 +61,9 @@ public class AddIrregularController {
 
     @FXML
     void initialize() {
-        AddTasksLabel.setOnMouseClicked(e -> {
+        EditTasksLabel.setOnMouseClicked(e -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
                 Main.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
@@ -74,6 +87,15 @@ public class AddIrregularController {
         });
 
 
+
+        REgularButton.setOnMouseClicked(e ->{
+            try {
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
+                Main.primaryStage.setScene(scene);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
         CancelButton.setOnMouseClicked(e ->{
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
@@ -84,9 +106,27 @@ public class AddIrregularController {
         });
         AddTaskButton.setOnMouseClicked(e ->{
             try {
+                String title = TaskTitle.getText().trim();
+                if (title.length() != 0 && TaskTime.getValue() != null && TaskDate.getValue() != null){
+
+                    StringBuffer bufferStart = new StringBuffer();
+
+                    bufferStart.append(TaskDate.getValue()).append(" ").append(TaskTime.getValue());
+
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date Start;
+
+                    System.out.println(bufferStart);
+
+                    Start = simpleDateFormat.parse(bufferStart.toString());
+                    Task task = new Task(title, Start);
+                    task.setActive(true);
+                    Main.taskList.add(task);
+                }
+
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
                 Main.primaryStage.setScene(scene);
-            } catch (IOException ex) {
+            } catch (IOException | ParseException ex) {
                 System.out.println(ex);
             }
         });
