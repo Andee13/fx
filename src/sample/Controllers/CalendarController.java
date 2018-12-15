@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.Set;
 import com.jfoenix.controls.JFXTimePicker;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,6 +83,8 @@ public class CalendarController {
     @FXML
     private JFXTimePicker EndTime;
 
+    //private ObservableList<Date, Set<Task>> tasksCalendar = FXCollections.observableArrayList();
+
     @FXML
     void initialize() {
         AddTasksLabel.setOnMouseClicked(e -> {
@@ -110,31 +114,29 @@ public class CalendarController {
 
         showButton.setOnMouseClicked(e->{
             if(StartTime.getValue() != null && EndTime.getValue() != null && dataEnd.getValue() != null && dataStart.getValue() != null ){
-                //update table
+                StringBuffer bufferStart = new StringBuffer();
+                StringBuffer bufferEnd = new StringBuffer();
+                bufferStart.append(dataStart.getValue()).append(" ").append(StartTime.getValue());
+                bufferEnd.append(dataEnd.getValue()).append(" ").append(EndTime.getValue());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                try {
+                    Date StartD;
+                    Date EndD;
+                    System.out.println(bufferStart);
+                    System.out.println(bufferEnd);
+                    StartD = simpleDateFormat.parse(bufferStart.toString());
+                    EndD = simpleDateFormat.parse(bufferEnd.toString());
+                    SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar( Main.taskList, StartD, EndD);
+
+
+
+                    System.out.println(StartD);
+                    System.out.println(EndD);
+                } catch (ParseException ex){
+                    System.out.println(ex);
+                }
+
             }
-            StringBuffer bufferStart = new StringBuffer();
-            StringBuffer bufferEnd = new StringBuffer();
-            bufferStart.append(dataStart.getValue()).append(" ").append(StartTime.getValue());
-            bufferEnd.append(dataEnd.getValue()).append(" ").append(EndTime.getValue());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            try {
-                Date StartD;
-                Date EndD;
-                System.out.println(bufferStart);
-                System.out.println(bufferEnd);
-                StartD = simpleDateFormat.parse(bufferStart.toString());
-                EndD = simpleDateFormat.parse(bufferEnd.toString());
-                SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar( Main.taskList, StartD, EndD);
-
-
-
-                System.out.println(StartD);
-                System.out.println(EndD);
-            } catch (ParseException ex){
-                System.out.println(ex);
-            }
-
-
 
         });
 

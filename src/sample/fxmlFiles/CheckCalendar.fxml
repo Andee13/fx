@@ -60,10 +60,8 @@
         </Pane>
         <TableView fx:id="MainTablewithTasks" layoutX="133.0" layoutY="191.0" prefHeight="500.0" prefWidth="813.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="50.0">
             <columns>
-                <TableColumn fx:id="TitleColumn" prefWidth="362.0" text="Title" />
-                <TableColumn fx:id="StartDate" prefWidth="150.0" text="Start" />
-                <TableColumn fx:id="End" prefWidth="137.0" text="End" />
-                <TableColumn fx:id="Interval" minWidth="0.0" prefWidth="96.0" text="Interval" />
+                <TableColumn fx:id="TitleColumn" prefWidth="362.0" text="Data" />
+                <TableColumn fx:id="End" prefWidth="137.0" text="Task description" />
                 <TableColumn fx:id="Active" prefWidth="70.0" text="Active" />
             </columns>
             <columnResizePolicy>
@@ -84,8 +82,8 @@
       <DatePicker fx:id="dataStart" editable="false" layoutX="353.0" layoutY="120.0" prefHeight="31.0" prefWidth="138.0" showWeekNumbers="true" />
       <DatePicker fx:id="dataEnd" editable="false" layoutX="631.0" layoutY="120.0" prefHeight="31.0" prefWidth="138.0" />
       <Button fx:id="showButton" layoutX="536.0" layoutY="152.0" mnemonicParsing="false" text="Show" />
-      <JFXTimePicker fx:id="StartTime" layoutX="326.0" layoutY="85.0" />
-      <JFXTimePicker fx:id="EndTime" layoutX="599.0" layoutY="85.0" />
+      <JFXTimePicker fx:id="StartTime" layoutX="368.0" layoutY="86.0" />
+      <JFXTimePicker fx:id="EndTime" layoutX="660.0" layoutY="85.0" />
 
 
       

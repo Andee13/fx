@@ -1,5 +1,6 @@
 package sample.model;
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -158,7 +159,7 @@ public class TaskIO {
             writer.close();
         }
     }
-    public static void read(TaskList tasks, Reader in) throws  IOException,  Exception {
+    public static void read(TaskList tasks, Reader in) throws  IOException, ParseException {
         BufferedReader bufferedReader = new BufferedReader(in);
         String readString = bufferedReader.readLine();      
         while (readString != null) {
@@ -259,7 +260,7 @@ public class TaskIO {
             out.close();
         }
     }
-    public static void readText(TaskList tasks, File file) throws  IOException  {
+    public static void readText(TaskList tasks, File file) throws  IOException, ParseException  {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(file));

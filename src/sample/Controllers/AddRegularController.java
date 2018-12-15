@@ -133,8 +133,10 @@ public class AddRegularController {
         AddTasksButton.setOnMouseClicked(e ->{
             try {
                 String title = titleOfTask.getText().trim();
+                System.out.println(title);
+                System.out.println(title.length());
                 if(TimeStart.getValue() != null && TimeEnd.getValue() != null && DataEnd.getValue() != null && dataStart.getValue() != null
-                        && titleOfTask.getText() != null && title.length() != 0) {
+                        && titleOfTask.getText() != null && !"".equals(title)) {
                     StringBuffer bufferStart = new StringBuffer();
                     StringBuffer bufferEnd = new StringBuffer();
                     bufferStart.append(dataStart.getValue()).append(" ").append(TimeStart.getValue());

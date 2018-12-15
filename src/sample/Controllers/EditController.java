@@ -65,7 +65,7 @@ public class EditController {
         TitleColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("title"));
         Interval.setCellValueFactory(new PropertyValueFactory<>("Interval"));
         Active.setCellValueFactory(new PropertyValueFactory<Task, String>("active"));
-       // initData();
+
 
         MainTablewithTasks.setItems(tasksFx);
 
@@ -96,9 +96,5 @@ public class EditController {
 
 
     }
-//    private void initData(){
-//        for(Task t: Main.taskList){
-//            tasksFx.add(t);
-//        }
-//    }
+
 }

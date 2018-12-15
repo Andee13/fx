@@ -9,13 +9,17 @@ import sample.model.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Main extends Application {
-    public static TaskList taskList;
+    //public static TaskList taskList = new ArrayTaskList();
+    public  static List<Task> taskList = new LinkedList<Task>();
     public static Stage primaryStage;
-    File in = new File("Data");
+    public static File in = new File("Data");
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -52,7 +56,7 @@ public class Main extends Application {
         if(in != null) {
             try {
                 TaskIO.readText(taskList, in);
-            } catch (IOException e){
+            } catch (IOException| ParseException e){
                 System.out.println("File doesn't opened " + e);
             }
         } else {

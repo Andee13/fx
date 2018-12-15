@@ -106,13 +106,13 @@ public class Task implements Cloneable, Serializable {
     }
 // Additional code
 
-    public Date getStart() {
-        return start;
-    }
-
-    public void setStart(Date start) {
-        this.start = start;
-    }
+//    public Date getStart() {
+//        return start;
+//    }
+//
+//    public void setStart(Date start) {
+//        this.start = start;
+//    }
 
     public Date getEnd() {
         return end;

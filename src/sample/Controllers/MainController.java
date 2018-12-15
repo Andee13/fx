@@ -46,10 +46,13 @@ public class MainController {
 
     @FXML
     private TableColumn<Task, Integer> Interval;
+
     @FXML
     private TableColumn<Task, String> TitleColumn;
+
     @FXML
     private TableView<Task> MainTablewithTasks;
+
     @FXML
     private TableColumn<Task, Date> End;
 
@@ -59,12 +62,13 @@ public class MainController {
     void initialize() {
 
         //ObservableList<Task> data = MainTablewithTasks.getItems();
-        StartDate.setCellValueFactory(new PropertyValueFactory<Task, Date>("start"));
+        StartDate.setCellValueFactory(new PropertyValueFactory<Task, Date>("startTime"));
         End.setCellValueFactory(new PropertyValueFactory<Task, Date>("End"));
         TitleColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("title"));
         Interval.setCellValueFactory(new PropertyValueFactory<>("Interval"));
         Active.setCellValueFactory(new PropertyValueFactory<Task, String>("active"));
-//        initData();
+        tasksFx.setAll(Main.taskList);
+        //initData();
 
         MainTablewithTasks.setItems(tasksFx);
 
@@ -102,9 +106,9 @@ public class MainController {
         });
 
     }
-//    private void initData(){
-//        for(Task t: Main.taskList){
-//            tasksFx.add(t);
-//        }
-//    }
+    private void initData(){
+        for(Task t: Main.taskList){
+            tasksFx.add(t);
+        }
+    }
 }
