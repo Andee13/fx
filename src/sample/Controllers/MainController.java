@@ -64,7 +64,7 @@ public class MainController {
         TitleColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("title"));
         Interval.setCellValueFactory(new PropertyValueFactory<>("Interval"));
         Active.setCellValueFactory(new PropertyValueFactory<Task, String>("active"));
-        initData();
+//        initData();
 
         MainTablewithTasks.setItems(tasksFx);
 
@@ -102,9 +102,9 @@ public class MainController {
         });
 
     }
-    private void initData(){
-        for(Task t: Main.taskList){
-            tasksFx.add(t);
-        }
-    }
+//    private void initData(){
+//        for(Task t: Main.taskList){
+//            tasksFx.add(t);
+//        }
+//    }
 }
