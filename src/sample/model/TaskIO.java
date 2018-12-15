@@ -263,6 +263,7 @@ public class TaskIO {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(file));
+            read(tasks, in);
         } finally {
             if(in != null){
                 in.close();
