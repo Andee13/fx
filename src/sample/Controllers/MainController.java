@@ -63,9 +63,9 @@ public class MainController {
 
         //ObservableList<Task> data = MainTablewithTasks.getItems();
         StartDate.setCellValueFactory(new PropertyValueFactory<Task, Date>("startTime"));
-        End.setCellValueFactory(new PropertyValueFactory<Task, Date>("End"));
+        End.setCellValueFactory(new PropertyValueFactory<Task, Date>("EndTime"));
         TitleColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("title"));
-        Interval.setCellValueFactory(new PropertyValueFactory<>("Interval"));
+        Interval.setCellValueFactory(new PropertyValueFactory<>("RepeatInterval"));
         Active.setCellValueFactory(new PropertyValueFactory<Task, String>("active"));
         tasksFx.setAll(Main.taskList);
         //initData();
@@ -80,14 +80,6 @@ public class MainController {
                 System.out.println(ex);
             }
         });
-        /*AllTAsksLabel.setOnMouseClicked(e -> {
-            try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
-            } catch (IOException ex) {
-                System.out.println(ex);
-            }
-        });*/
         EditTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
@@ -108,6 +100,7 @@ public class MainController {
     }
     private void initData(){
         for(Task t: Main.taskList){
+
             tasksFx.add(t);
         }
     }

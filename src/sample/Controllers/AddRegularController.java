@@ -155,13 +155,13 @@ public class AddRegularController {
                     int Interval;
                     switch(intervalStr){
                         case "Days":
-                            Interval = 86400;
+                            Interval = Integer.parseInt(this.Interval.getText()) *86400;
                             break;
                         case "Hours":
-                            Interval = 3600;
+                            Interval = Integer.parseInt(this.Interval.getText()) *3600;
                             break;
                         case "Minutes":
-                            Interval = 60;
+                            Interval = Integer.parseInt(this.Interval.getText()) * 60;
                             break;
                             default: Interval = 0;
                             break;

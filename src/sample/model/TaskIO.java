@@ -4,19 +4,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.Duration;
 
 public class TaskIO {
-    public static void write(TaskList tasks, OutputStream out) throws IOException {
+    public static void write(List tasks, OutputStream out) throws IOException {
         DataOutputStream outputStream = new DataOutputStream(out);
         try {
             outputStream.writeInt(tasks.size());
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.getTask(i);
+            //for (int i = 0; i < tasks.size(); i++) {
+              //  Task task = tasks.getTask(i);
+            for(Iterator<Task> taskI =  tasks.iterator(); taskI.hasNext();){
+                Task task = taskI.next();
                 outputStream.writeInt(task.getTitle().length());
-                outputStream.writeUTF(tasks.getTask(i).getTitle());
+                outputStream.writeUTF(task/*.getTask(i)*/.getTitle());
                 outputStream.writeBoolean(task.isActive());
                 outputStream.writeInt(task.getRepeatInterval());
                 if (task.getRepeatInterval() != 0) {
@@ -30,7 +33,7 @@ public class TaskIO {
             outputStream.close();
         }
     }
-    public  static void read(TaskList tasks, InputStream in) throws IOException {
+    public  static void read(List tasks, InputStream in) throws IOException {
         DataInputStream inputStream =  new DataInputStream(in);
         try {
             int size = inputStream.readInt();
@@ -58,7 +61,7 @@ public class TaskIO {
             inputStream.close();
         }
     }
-    public static void writeBinary(TaskList tasks, File file) throws IOException {
+    public static void writeBinary(List tasks, File file) throws IOException {
         BufferedOutputStream bOS = new BufferedOutputStream(new FileOutputStream(file));
         try {
             write(tasks,bOS);
@@ -67,7 +70,7 @@ public class TaskIO {
         }
 
     }
-    public  static void readBinary(TaskList tasks, File file) throws IOException {
+    public  static void readBinary(List tasks, File file) throws IOException {
         BufferedInputStream bIS = new BufferedInputStream( new FileInputStream(file));
         try {
             read(tasks, bIS);
@@ -77,7 +80,7 @@ public class TaskIO {
         }
     }
 
-    public  static  void write(TaskList tasks, Writer out) throws  IOException {
+    public  static  void write(List tasks, Writer out) throws  IOException {
         BufferedWriter writer  = new BufferedWriter(out);
         try {
             for (Iterator<Task> l = tasks.iterator(); l.hasNext(); ) {
@@ -159,7 +162,7 @@ public class TaskIO {
             writer.close();
         }
     }
-    public static void read(TaskList tasks, Reader in) throws  IOException, ParseException {
+    public static void read(List tasks, Reader in) throws  IOException, ParseException {
         BufferedReader bufferedReader = new BufferedReader(in);
         String readString = bufferedReader.readLine();      
         while (readString != null) {
@@ -250,7 +253,7 @@ public class TaskIO {
        }
        
     }
-    public static  void writeText(TaskList tasks, File file) throws  IOException {
+    public static  void writeText(List tasks, File file) throws  IOException {
         BufferedWriter out = null;
         try {
             out = new BufferedWriter( new FileWriter(file));
@@ -260,7 +263,7 @@ public class TaskIO {
             out.close();
         }
     }
-    public static void readText(TaskList tasks, File file) throws  IOException, ParseException  {
+    public static void readText(List tasks, File file) throws  IOException, ParseException  {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(file));

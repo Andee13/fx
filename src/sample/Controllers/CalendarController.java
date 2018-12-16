@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.SortedMap;
-import java.util.Set;
+import java.util.*;
+
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +19,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -39,43 +38,38 @@ public class CalendarController {
     private URL location;
 
     @FXML
-    private ImageView AllTAsksLabel;
-
-    @FXML
     private ImageView AddTasksLabel;
 
     @FXML
     private ImageView EditTasksLabel;
 
     @FXML
-    private TableColumn<?, ?> TitleColumn;
-
-    @FXML
-    private TableView<?> MainTablewithTasks;
-
-    @FXML
     private ImageView CalendarTasks;
 
     @FXML
-    private TableColumn<?, ?> StartDate;
+    private ImageView AllTAsksLabel;
 
     @FXML
-    private TableColumn<?, ?> Active;
+    private TableView<DateCalendar> MainTablewithTasks;
 
     @FXML
-    private DatePicker dataEnd;
+    private TableColumn<DateCalendar, Date> dateColumn;
+
+    @FXML
+    private TableColumn<DateCalendar, String> taskDescription;
+
+    @FXML
+    private TableColumn<DateCalendar, String> Active;
+
 
     @FXML
     private DatePicker dataStart;
 
     @FXML
+    private DatePicker dataEnd;
+
+    @FXML
     private Button showButton;
-
-    @FXML
-    private TableColumn<?, ?> End;
-
-    @FXML
-    private TableColumn<?, ?> Interval;
 
     @FXML
     private JFXTimePicker StartTime;
@@ -83,7 +77,43 @@ public class CalendarController {
     @FXML
     private JFXTimePicker EndTime;
 
-    //private ObservableList<Date, Set<Task>> tasksCalendar = FXCollections.observableArrayList();
+    private ObservableList<DateCalendar> tasksCalendar = FXCollections.observableArrayList();
+
+   public class DateCalendar {
+        Date date;
+        String title;
+        boolean active;
+
+        public Date getDate() {
+            return date;
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public boolean isActive() {
+            return active;
+        }
+
+        public void setActive(boolean active) {
+            this.active = active;
+        }
+
+        public DateCalendar(Date date, String title, boolean active) {
+            this.date = date;
+            this.title = title;
+            this.active = active;
+        }
+    }
 
     @FXML
     void initialize() {
@@ -122,16 +152,55 @@ public class CalendarController {
                 try {
                     Date StartD;
                     Date EndD;
-                    System.out.println(bufferStart);
-                    System.out.println(bufferEnd);
+//                    System.out.println(bufferStart);
+//                    System.out.println(bufferEnd);
+                    MainTablewithTasks.getItems().clear();
                     StartD = simpleDateFormat.parse(bufferStart.toString());
                     EndD = simpleDateFormat.parse(bufferEnd.toString());
-                    SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar( Main.taskList, StartD, EndD);
+                    SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar(Main.taskList, StartD, EndD);
+                    Set data = sortedMap.keySet();
+                    for(Iterator<Date>  iterData = data.iterator(); iterData.hasNext();){
+                        Date date = iterData.next();
+                        Set<Task> setTask = sortedMap.get(date);
+                        for(Iterator<Task> iter = setTask.iterator();iter.hasNext();){
+                            Task task = iter.next();
+                            tasksCalendar.add(new DateCalendar(date, task.getTitle(), task.isActive()));
+                        }
 
 
+                        //Date date = iterData.next();
+                        //Set<Task> taskSet = sortedMap.get(date);
 
-                    System.out.println(StartD);
-                    System.out.println(EndD);
+
+                        ////tasksCalendar.addAll(sortedMap.get(iterData.next()));
+
+
+                        //for(Iterator<Task> taskIterator = taskSet.iterator();taskIterator.hasNext();){
+                        //}
+                    }
+
+//                    DateColumn = new TableColumn<>("Date");
+//                    DateColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+//
+//                    TaskDescription = new TableColumn<>("Title");
+//                    TaskDescription.setCellValueFactory(new PropertyValueFactory<>("title"));
+//
+//                    Active = new TableColumn<>("Active");
+//                    Active.setCellValueFactory(new PropertyValueFactory<>("active"));
+
+                   // MainTablewithTasks.getColumns().setAll(DateColumn,TaskDescription,Active);
+                    // MainTablewithTasks.
+
+                    dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+                    taskDescription.setCellValueFactory(new PropertyValueFactory<>("title"));
+
+                    Active.setCellValueFactory(new PropertyValueFactory<>("active"));
+                    MainTablewithTasks.setItems(tasksCalendar);
+
+
+//                    System.out.println(StartD);
+//                    System.out.println(EndD);
                 } catch (ParseException ex){
                     System.out.println(ex);
                 }

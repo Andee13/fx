@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="994.0" style="-fx-background-color: #ededed;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.AddRegularController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="994.0" style="-fx-background-color: #ededed;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.EditIrreg">
     <children>
         <Pane prefHeight="728.0" prefWidth="96.0" style="-fx-background-color: #10232a;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -68,20 +68,13 @@
             </center>
         </BorderPane>
         <TextArea fx:id="titleOfTask" layoutX="370.0" layoutY="225.0" prefHeight="40.0" prefWidth="345.0" promptText="to read a book" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="279.0" />
-        <BorderPane layoutX="96.0" layoutY="67.0" prefHeight="40.0" prefWidth="899.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="-1.0">
-            <top>
-                <Button fx:id="ChoseIrregular" mnemonicParsing="false" prefHeight="40.0" prefWidth="432.0" text="Irregular" BorderPane.alignment="CENTER" />
-            </top>
-            <bottom>
-                <Button defaultButton="true" mnemonicParsing="false" prefHeight="38.0" prefWidth="432.0" text="Regular" BorderPane.alignment="CENTER" />
-            </bottom>
-        </BorderPane>
+        <BorderPane layoutX="96.0" layoutY="67.0" prefHeight="40.0" prefWidth="899.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="-1.0" />
         <Text layoutX="370.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter task name">
             <font>
                 <Font size="25.0" />
             </font>
         </Text>
-        <Text layoutX="370.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter time">
+        <Text layoutX="401.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter time">
             <font>
                 <Font size="25.0" />
             </font>
@@ -89,13 +82,13 @@
         <Button fx:id="AddTasksButton" layoutX="539.0" layoutY="495.0" mnemonicParsing="false" text="Confirm " />
         <Button fx:id="CanccelButton" layoutX="338.0" layoutY="495.0" mnemonicParsing="false" text="Cancel" />
         <JFXTimePicker fx:id="TimeStart" layoutX="558.0" layoutY="336.0" />
-        <DatePicker fx:id="dataStart" layoutX="312.0" layoutY="337.0" />
+        <DatePicker fx:id="dataStart" layoutX="339.0" layoutY="337.0" />
         <Text layoutX="438.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Active">
             <font>
                 <Font size="25.0" />
             </font>
         </Text>
-        <CheckBox layoutX="437.0" layoutY="444.0" mnemonicParsing="false" selected="true" text="setActive">
+        <CheckBox fx:id="ChoiseBox" layoutX="437.0" layoutY="444.0" mnemonicParsing="false" selected="true" text="setActive">
             <font>
                 <Font size="16.0" />
             </font>

@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,14 +19,15 @@ import java.util.List;
 
 public class Main extends Application {
     //public static TaskList taskList = new ArrayTaskList();
+    //private ObservableList<Task> tasksCalendar = FXCollections.observableArrayList();
+
     public  static List<Task> taskList = new LinkedList<Task>();
+
     public static Stage primaryStage;
     public static File in = new File("Data");
+    public static Task taskTemp;
     @Override
-    public void start(Stage primaryStage) throws Exception{
-
-
-
+    public void start(Stage primaryStage) throws Exception {
 
 //        taskList.add(new Task("Programming", new Date(), new Date(new Date().getTime()+1000000), 1000));
 //        taskList.add(new Task("Reading", new Date()));
@@ -60,7 +63,7 @@ public class Main extends Application {
                 System.out.println("File doesn't opened " + e);
             }
         } else {
-            taskList = new ArrayTaskList();
+            //taskList = new ArrayTaskList();
         }
     }
 

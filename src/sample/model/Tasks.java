@@ -25,7 +25,7 @@ public class Tasks {
         }
         return tasks_in;
     }
- 
+
     public static SortedMap<Date, Set<Task>> calendar(Iterable<Task> tasks, Date start, Date end){
         if(start == null || end == null){
             throw new IllegalArgumentException("null argumet");
@@ -33,10 +33,10 @@ public class Tasks {
         if(start.after(end)) {
             throw new IllegalArgumentException("Unpropriate time");
         }
-        
+
         SortedMap<Date, Set<Task>> sortedMap =  new TreeMap<Date, Set<Task>>();
         Iterable<Task> tasks_in = incoming(tasks, start, end);
-        for(Task temp : tasks_in) { 
+        for(Task temp : tasks_in) {
             for(Date time = temp.nextTimeAfter(start); time != null && time.after(start) && (time.equals(end)|| time.before(end)); time = temp.nextTimeAfter(time)){
                 if(sortedMap.containsKey(time)){
                     Set<Task> t = sortedMap.get(time);
@@ -45,10 +45,10 @@ public class Tasks {
                     Set<Task> set = new LinkedHashSet<Task>();
                     set.add(temp);
                     sortedMap.put(time, set);
-                }    
+                }
             }
         }
-        
+
         return sortedMap ;
     }
 }
