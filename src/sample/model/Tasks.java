@@ -10,21 +10,25 @@ public class Tasks {
         if(start.after(end)) {
             throw new IllegalArgumentException("Unappropriate time");
         }
-       
-       Iterator<Task> iterator =  tasks.iterator();
         TaskList tasks_in = new LinkedTaskList();
-        while(iterator.hasNext()){
-            Task task = iterator.next();
-            Date temp = task.nextTimeAfter(start);
-            if( temp != null && temp.after(start) ){
-                if ( temp.before(end) || temp.equals(end)) {
-                    tasks_in.add(task);
-                }
-            }
-            
-        }
+       synchronized (tasks) {
+           Iterator<Task> iterator = tasks.iterator();
+
+           while (iterator.hasNext()) {
+               Task task = iterator.next();
+               Date temp = task.nextTimeAfter(start);
+               if (temp != null && temp.after(start)) {
+                   if (temp.before(end) || temp.equals(end)) {
+                       tasks_in.add(task);
+                   }
+               }
+
+           }
+       }
         return tasks_in;
+
     }
+
 
     public static SortedMap<Date, Set<Task>> calendar(Iterable<Task> tasks, Date start, Date end){
         if(start == null || end == null){

@@ -12,6 +12,7 @@ import sample.model.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +22,8 @@ public class Main extends Application {
     //public static TaskList taskList = new ArrayTaskList();
     //private ObservableList<Task> tasksCalendar = FXCollections.observableArrayList();
 
-    public  static List<Task> taskList = new LinkedList<Task>();
+    public  static List<Task> taskLis = new LinkedList<Task>();
+    public  static volatile List<Task> taskList = Collections.synchronizedList(new LinkedList<Task>());
 
     public static Stage primaryStage;
     public static File in = new File("Data");
@@ -42,6 +44,9 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1100, 700));
         primaryStage.show();
         this.primaryStage = primaryStage;
+        Scheduler scheduler = new Scheduler();
+        Thread thread = new Thread(scheduler);
+        thread.start();
 
     }
 
@@ -56,6 +61,7 @@ public class Main extends Application {
 
     @Override
     public void init(){
+
         if(in != null) {
             try {
                 TaskIO.readText(taskList, in);
@@ -65,9 +71,11 @@ public class Main extends Application {
         } else {
             //taskList = new ArrayTaskList();
         }
+
     }
 
     public static void main(String[] args) {
         launch(args);
+
     }
 }
