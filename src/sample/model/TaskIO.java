@@ -256,7 +256,7 @@ public class TaskIO {
     public static  void writeText(List tasks, File file) throws  IOException {
         BufferedWriter out = null;
         try {
-            out = new BufferedWriter( new FileWriter(file));
+            out = new BufferedWriter(new FileWriter(file));
             write(tasks, out);
         } finally {
             if(out != null)

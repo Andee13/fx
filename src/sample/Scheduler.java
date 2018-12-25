@@ -68,11 +68,10 @@ public class Scheduler implements Runnable{
                     trayIcon.displayMessage("Опеващение о задаче\n",task.getTitle(), TrayIcon.MessageType.valueOf("INFO"));
                     System.out.println("Time to do this task -- " + task.getTitle());
                 }
-
             }
 
             try {
-                //Thread.yield();
+
                 Thread.sleep(60000);
             } catch (InterruptedException ex) {
                 System.out.println(ex);

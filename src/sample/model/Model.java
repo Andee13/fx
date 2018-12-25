@@ -15,13 +15,18 @@ public class Model {
     public static Stage primaryStage;
     public static File in = new File("Data");
     public static Task taskTemp;
+    /*static {
+        in = new File("Da");
+    }*/
 
-    public static void writeTasks(){
+
+    public static void writeTasks(){System.out.println("ok++++");
         try{
             TaskIO.writeText(taskList, in);
-            System.out.println("ok++++");
+
         } catch(IOException ex){
             System.out.println("problem with file " + ex);
         }
     }
+
 }

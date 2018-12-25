@@ -23,6 +23,7 @@ import sample.model.Task;
 import sample.model.TaskIO;
 
 import static sample.model.Model.in;
+import static sample.model.Model.taskList;
 
 public class AddIrregularController {
 
@@ -129,36 +130,48 @@ public class AddIrregularController {
             }
         });
         AddTaskButton.setOnMouseClicked(e ->{
-            try {
+
+
                 String title = TaskTitle.getText().trim();
                 if (title.length() != 0 && TaskTime.getValue() != null && TaskDate.getValue() != null){
 
-                    StringBuffer bufferStart = new StringBuffer();
-
-                    bufferStart.append(TaskDate.getValue()).append(" ").append(TaskTime.getValue());
-
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date Start;
-
-                    System.out.println(bufferStart);
-
-                    Start = simpleDateFormat.parse(bufferStart.toString());
-                    Task task = new Task(title, Start);
-                    task.setActive(true);
-                    Model.taskList.add(task);
-                    Model.writeTasks();
 
 
+                        StringBuffer bufferStart = new StringBuffer();
 
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Model.primaryStage.setScene(scene);
+                        bufferStart.append(TaskDate.getValue()).append(" ").append(TaskTime.getValue());
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+
+                        System.out.println(bufferStart);
+                        try{
+                            Date Start;
+                            Start = simpleDateFormat.parse(bufferStart.toString());
+                            Task task = new Task(title, Start);
+                            task.setActive(true);
+                            Model.taskList.add(task);
+                } catch (ParseException ex) {
+                System.out.println(ex);
+            }
+
+
+//                    try{
+//                        TaskIO.writeText(taskList, in);
+//                    } catch(IOException ex){
+//                        System.out.println("problem with file " + ex);
+//                    }
+                    try{
+                        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
+                        Model.primaryStage.setScene(scene);
+                    }catch (IOException  ex){
+                        System.out.println(ex);
+                    }
                 } else {
                     wrongText.setVisible(true);
                 }
 
-            } catch (IOException | ParseException ex) {
-                System.out.println(ex);
-            }
+
         });
     }
 }

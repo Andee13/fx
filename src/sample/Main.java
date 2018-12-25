@@ -45,7 +45,11 @@ public class Main extends Application {
 //        } catch(IOException ex){
 //            System.out.println("problem with file " + ex);
 //        }
-        Model.writeTasks();
+        try{
+            TaskIO.writeText(taskList, in);
+        } catch(IOException ex){
+            System.out.println("problem with file " + ex);
+        }
         System.exit(0);
     }
 
