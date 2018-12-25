@@ -112,6 +112,7 @@ public class EditController {
                     } catch (IOException ex) {
                         System.out.println(ex);
                     }
+                    Model.writeTasks();
                 }
 
             } else {
@@ -130,6 +131,7 @@ public class EditController {
                     //System.out.println(task.isActive());
                     warnText.setVisible(false);
                     Model.taskList.remove(task);
+                    Model.writeTasks();
                 } else {
                     Task task = new Task(MainTablewithTasks.getSelectionModel().getSelectedItem().getTitle(),
                             MainTablewithTasks.getSelectionModel().getSelectedItem().getStartTime());
@@ -137,6 +139,7 @@ public class EditController {
                     Model.taskList.remove(task);
                     warnText.setVisible(false);
                     MainTablewithTasks.getItems().remove(MainTablewithTasks.getSelectionModel().getSelectedItem());
+                    Model.writeTasks();
                 }
             } else {
                 warnText.setVisible(true);

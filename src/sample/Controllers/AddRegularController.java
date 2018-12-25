@@ -24,7 +24,10 @@ import javafx.scene.text.Text;
 
 import sample.model.Model;
 import sample.model.Task;
+import sample.model.TaskIO;
 import sample.model.Tasks;
+
+import static sample.model.Model.in;
 
 public class AddRegularController {
     ObservableList<String> timeInterval = FXCollections.observableArrayList("Days", "Hours", "Minutes");
@@ -182,8 +185,7 @@ public class AddRegularController {
                     Task task = new Task(title, StartD,EndD, Interval);
                     task.setActive(true);
                     Model.taskList.add(task);
-                    System.out.println(StartD);
-                    System.out.println(EndD);
+                    Model.writeTasks();
                     Model.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
                 } else {
                     wrongInput.setVisible(true);

@@ -81,22 +81,22 @@ public class EditIrreg {
             String title = titleOfTask.getText().trim();
             if(title.length() != 0) {
             try {
-                StringBuffer bufferStart = new StringBuffer();
-                bufferStart.append(dataStart.getValue()).append(" ").append(TimeStart.getValue());
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    StringBuffer bufferStart = new StringBuffer();
+                    bufferStart.append(dataStart.getValue()).append(" ").append(TimeStart.getValue());
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-                Date Start = simpleDateFormat.parse(bufferStart.toString());
-                Task task1 = new Task(title, Start);
-                task1.setActive(ChoiseBox.isSelected());
+                    Date Start = simpleDateFormat.parse(bufferStart.toString());
+                    Task task1 = new Task(title, Start);
+                    task1.setActive(ChoiseBox.isSelected());
 
-                Model.taskList.remove(task);
-                Model.taskList.add(task1);
-
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                Model.primaryStage.setScene(scene);
-            } catch (IOException | ParseException ex){
-                System.out.println(ex);
-            }
+                    Model.taskList.remove(task);
+                    Model.taskList.add(task1);
+                    Model.writeTasks();
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
+                    Model.primaryStage.setScene(scene);
+                } catch (IOException | ParseException ex){
+                    System.out.println(ex);
+                }
 
             } else {
                 warningText.setVisible(true);

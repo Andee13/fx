@@ -20,6 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import sample.model.Model;
 import sample.model.Task;
+import sample.model.TaskIO;
+
+import static sample.model.Model.in;
 
 public class AddIrregularController {
 
@@ -143,6 +146,8 @@ public class AddIrregularController {
                     Task task = new Task(title, Start);
                     task.setActive(true);
                     Model.taskList.add(task);
+                    Model.writeTasks();
+
 
 
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));

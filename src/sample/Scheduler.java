@@ -72,6 +72,7 @@ public class Scheduler implements Runnable{
             }
 
             try {
+                //Thread.yield();
                 Thread.sleep(60000);
             } catch (InterruptedException ex) {
                 System.out.println(ex);

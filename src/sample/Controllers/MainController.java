@@ -101,7 +101,6 @@ public class MainController {
     }
     private void initData(){
         for(Task t: Model.taskList){
-
             tasksFx.add(t);
         }
     }

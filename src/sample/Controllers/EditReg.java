@@ -144,7 +144,7 @@ public class EditReg {
                     task1.setActive(activeCheckBox.isSelected());
                     Model.taskList.remove(task);
                     Model.taskList.add(task1);
-
+                    Model.writeTasks();
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
                     Model.primaryStage.setScene(scene);
 

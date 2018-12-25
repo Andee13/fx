@@ -40,13 +40,15 @@ public class Main extends Application {
 
     @Override
     public void stop(){
-        try{
-            TaskIO.writeText(Model.taskList, in);
-        } catch(IOException ex){
-            System.out.println("problem with file " + ex);
-        }
+//        try{
+//            TaskIO.writeText(Model.taskList, in);
+//        } catch(IOException ex){
+//            System.out.println("problem with file " + ex);
+//        }
+        Model.writeTasks();
         System.exit(0);
     }
+
 
     @Override
     public void init(){
