@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXTimePicker;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -94,7 +96,18 @@ public class AddIrregularController {
             }
         });
 
+        TaskTitle.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                /*System.out.println("oldValue = " + oldValue);
+                 */
+                System.out.println("newValue = " + newValue);
 
+                if (newValue.matches("^\\s")) {
+                    TaskTitle.setText(newValue.replaceAll("^\\s+", ""));
+                }
+            }
+        });
 
         REgularButton.setOnMouseClicked(e ->{
             try {

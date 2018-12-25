@@ -24,6 +24,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import sample.model.Model;
 import sample.model.Model;
 import sample.model.Task;
@@ -71,6 +72,7 @@ public class EditReg {
 
     @FXML
     private DatePicker DataEnd;
+
     ObservableList<String> timeInterval = FXCollections.observableArrayList("Days", "Hours", "Minutes");
     @FXML
     private ChoiceBox<String> ChoiseBoxRegular;
@@ -78,10 +80,14 @@ public class EditReg {
     @FXML
     private CheckBox activeCheckBox;
 
+    @FXML
+    private Text warningText;
 
 
     @FXML
     void initialize() {
+        warningText.setVisible(false);
+
         Task task = Model.taskTemp;
         Model.taskTemp = null;
         titleOfTask.setText(task.getTitle());
@@ -150,8 +156,7 @@ public class EditReg {
 
 
             } else {
-
-
+                warningText.setVisible(true);
             }
 
         });

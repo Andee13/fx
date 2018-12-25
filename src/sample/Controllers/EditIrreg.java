@@ -19,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import sample.model.Model;
 import sample.model.Task;
 
@@ -61,7 +62,11 @@ public class EditIrreg {
     private CheckBox ChoiseBox;
 
     @FXML
+    private Text warningText;
+
+    @FXML
     void initialize() {
+        warningText.setVisible(false);
         Task task = Model.taskTemp;
         Model.taskTemp = null;
         titleOfTask.setText(task.getTitle());
@@ -94,7 +99,7 @@ public class EditIrreg {
             }
 
             } else {
-
+                warningText.setVisible(true);
             }
         });
 
