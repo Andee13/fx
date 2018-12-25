@@ -20,7 +20,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import sample.Main;
+import javafx.scene.text.Text;
+
+import sample.model.Model;
 import sample.model.Task;
 import sample.model.Tasks;
 
@@ -75,7 +77,11 @@ public class AddRegularController {
     private ChoiceBox<String> ChoiseBoxRegular;
 
     @FXML
+    private Text wrongInput;
+
+    @FXML
     void initialize() {
+        wrongInput.setVisible(false);
         ChoiseBoxRegular.setItems(timeInterval);
         Interval.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -91,7 +97,7 @@ public class AddRegularController {
         AllTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -99,7 +105,7 @@ public class AddRegularController {
         EditTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -107,7 +113,7 @@ public class AddRegularController {
         CalendarTasks.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -118,33 +124,40 @@ public class AddRegularController {
 
 
 
+        titleOfTask.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                /*System.out.println("oldValue = " + oldValue);
+                 */
+                System.out.println("newValue = " + newValue);
 
+                if (newValue.matches("^\\s")) {
+                    titleOfTask.setText(newValue.replaceAll("^\\s+", ""));
+                }
+            }
+        });
 
 
 
 
         CanccelButton.setOnMouseClicked(e ->{
             try {
-                Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
+                Model.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
             } catch (IOException ex){
                 System.out.println(ex);
             }
         });
         AddTasksButton.setOnMouseClicked(e ->{
+
             try {
                 String title = titleOfTask.getText().trim();
-                System.out.println(title);
-                System.out.println(title.length());
                 if(TimeStart.getValue() != null && TimeEnd.getValue() != null && DataEnd.getValue() != null && dataStart.getValue() != null
-                        && titleOfTask.getText() != null && !"".equals(title)) {
+                        && titleOfTask.getText() != null  && !"".equals(title)) {
                     StringBuffer bufferStart = new StringBuffer();
                     StringBuffer bufferEnd = new StringBuffer();
                     bufferStart.append(dataStart.getValue()).append(" ").append(TimeStart.getValue());
                     bufferEnd.append(DataEnd.getValue()).append(" ").append(TimeEnd.getValue());
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-
-
                     Date StartD;
                     Date EndD;
                     System.out.println(bufferStart);
@@ -168,21 +181,24 @@ public class AddRegularController {
                     }
                     Task task = new Task(title, StartD,EndD, Interval);
                     task.setActive(true);
-                    Main.taskList.add(task);
+                    Model.taskList.add(task);
                     System.out.println(StartD);
                     System.out.println(EndD);
+                    Model.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
+                } else {
+                    wrongInput.setVisible(true);
+
                 }
-                Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml"))));
+
             } catch (IOException |ParseException ex ) {
                 System.out.println(ex);
             }
         });
         ChoseIrregular.setOnMouseClicked(e ->{
             try {
-
-
-                Main.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksIrregular.fxml"))));
+                Model.primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksIrregular.fxml"))));
             } catch (IOException ex) {
+                ex.printStackTrace();
                 System.out.println(ex);
             }
         });

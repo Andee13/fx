@@ -24,7 +24,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import sample.Main;
+import sample.model.Model;
+import sample.model.Model;
 import sample.model.Task;
 
 public class EditReg {
@@ -81,8 +82,8 @@ public class EditReg {
 
     @FXML
     void initialize() {
-        Task task = Main.taskTemp;
-        Main.taskTemp = null;
+        Task task = Model.taskTemp;
+        Model.taskTemp = null;
         titleOfTask.setText(task.getTitle());
         Date dateS = task.getStartTime();
         LocalDate dateStart = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -135,11 +136,11 @@ public class EditReg {
                     }
                     Task task1 =  new Task(title, StartD, EndD, Interval);
                     task1.setActive(activeCheckBox.isSelected());
-                    Main.taskList.remove(task);
-                    Main.taskList.add(task1);
+                    Model.taskList.remove(task);
+                    Model.taskList.add(task1);
 
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                    Main.primaryStage.setScene(scene);
+                    Model.primaryStage.setScene(scene);
 
 
 
@@ -158,7 +159,7 @@ public class EditReg {
         CanccelButton.setOnMouseClicked(event -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -166,7 +167,7 @@ public class EditReg {
         AddTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -174,7 +175,7 @@ public class EditReg {
         AllTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -182,7 +183,7 @@ public class EditReg {
         CalendarTasks.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }

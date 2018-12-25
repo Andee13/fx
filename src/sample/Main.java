@@ -17,46 +17,35 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import static sample.model.Model.*;
+
 
 public class Main extends Application {
-    //public static TaskList taskList = new ArrayTaskList();
-    //private ObservableList<Task> tasksCalendar = FXCollections.observableArrayList();
-
-    public  static List<Task> taskLis = new LinkedList<Task>();
-    public  static volatile List<Task> taskList = Collections.synchronizedList(new LinkedList<Task>());
-
+    /*public  static List<Task> taskLis = new LinkedList<Task>();
+    public  static volatile List<Task> taskList = Collections.synchronizedList(taskLis);
     public static Stage primaryStage;
     public static File in = new File("Data");
-    public static Task taskTemp;
+    public static Task taskTemp;*/
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-//        taskList.add(new Task("Programming", new Date(), new Date(new Date().getTime()+1000000), 1000));
-//        taskList.add(new Task("Reading", new Date()));
-
-        //Task task = new Task("Walking", new Date());
-        //task.setActive(true);
-        //taskList.add(task);
-        //taskList.add(new Task("Playing games", new Date(), new Date(new Date().getTime()+1000000), 10000));
-
         Parent root = FXMLLoader.load(getClass().getResource("fxmlFiles/MainMenu.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1100, 700));
         primaryStage.show();
-        this.primaryStage = primaryStage;
-        Scheduler scheduler = new Scheduler();
-        Thread thread = new Thread(scheduler);
-        thread.start();
+        Model.primaryStage = primaryStage;
 
     }
 
     @Override
     public void stop(){
         try{
-            TaskIO.writeText(taskList, in);
+            TaskIO.writeText(Model.taskList, in);
         } catch(IOException ex){
             System.out.println("problem with file " + ex);
         }
+        System.exit(0);
     }
 
     @Override
@@ -64,18 +53,23 @@ public class Main extends Application {
 
         if(in != null) {
             try {
-                TaskIO.readText(taskList, in);
+                TaskIO.readText(Model.taskList, in);
             } catch (IOException| ParseException e){
                 System.out.println("File doesn't opened " + e);
             }
+            Runnable r = new Scheduler();
+            Thread thread = new Thread(r);
+            thread.start();
         } else {
-            //taskList = new ArrayTaskList();
+            System.out.println("File doesn't find ");
         }
 
     }
 
     public static void main(String[] args) {
+
         launch(args);
+
 
     }
 }

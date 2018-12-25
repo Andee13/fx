@@ -16,8 +16,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import sample.Main;
+
 import sample.model.Task;
+import sample.model.Model;
 
 public class EditController {
 
@@ -81,7 +82,7 @@ public class EditController {
 
 
 
-        tasksFx.addAll(Main.taskList);
+        tasksFx.addAll(Model.taskList);
         MainTablewithTasks.setItems(tasksFx);
         editTask.setOnMouseClicked(e ->{
             if(MainTablewithTasks.getSelectionModel().getSelectedItem() != null){
@@ -91,10 +92,10 @@ public class EditController {
                             MainTablewithTasks.getSelectionModel().getSelectedItem().getEndTime(),
                             MainTablewithTasks.getSelectionModel().getSelectedItem().getRepeatInterval());
                     task.setActive(MainTablewithTasks.getSelectionModel().getSelectedItem().isActive());
-                    Main.taskTemp = task;
+                    Model.taskTemp = task;
                     try {
                         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditReg.fxml")));
-                        Main.primaryStage.setScene(scene);
+                        Model.primaryStage.setScene(scene);
                     } catch (IOException ex) {
                         System.out.println(ex);
                     }
@@ -104,17 +105,17 @@ public class EditController {
                     Task task = new Task(MainTablewithTasks.getSelectionModel().getSelectedItem().getTitle(),
                             MainTablewithTasks.getSelectionModel().getSelectedItem().getStartTime());
                     task.setActive(MainTablewithTasks.getSelectionModel().getSelectedItem().isActive());
-                    Main.taskTemp = task;
+                    Model.taskTemp = task;
                     try {
                         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditIrreg.fxml")));
-                        Main.primaryStage.setScene(scene);
+                        Model.primaryStage.setScene(scene);
                     } catch (IOException ex) {
                         System.out.println(ex);
                     }
                 }
 
             } else {
-                warnText.setVisible(false);
+                warnText.setVisible(true);
             }
         });
         deleteTask.setOnMouseClicked(e->{
@@ -128,12 +129,12 @@ public class EditController {
                     MainTablewithTasks.getItems().remove(MainTablewithTasks.getSelectionModel().getSelectedItem());
                     //System.out.println(task.isActive());
                     warnText.setVisible(false);
-                    Main.taskList.remove(task);
+                    Model.taskList.remove(task);
                 } else {
                     Task task = new Task(MainTablewithTasks.getSelectionModel().getSelectedItem().getTitle(),
                             MainTablewithTasks.getSelectionModel().getSelectedItem().getStartTime());
                     task.setActive(MainTablewithTasks.getSelectionModel().getSelectedItem().isActive());
-                    Main.taskList.remove(task);
+                    Model.taskList.remove(task);
                     warnText.setVisible(false);
                     MainTablewithTasks.getItems().remove(MainTablewithTasks.getSelectionModel().getSelectedItem());
                 }
@@ -145,7 +146,7 @@ public class EditController {
         AddTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -153,7 +154,7 @@ public class EditController {
         AllTAsksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -161,7 +162,7 @@ public class EditController {
         CalendarTasks.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }

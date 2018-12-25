@@ -23,7 +23,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import sample.Main;
+import javafx.scene.text.Text;
+import sample.model.Model;
 import sample.model.Task;
 import sample.model.Tasks;
 
@@ -77,6 +78,9 @@ public class CalendarController {
     @FXML
     private JFXTimePicker EndTime;
 
+    @FXML
+    private Text warningText;
+
     private ObservableList<DateCalendar> tasksCalendar = FXCollections.observableArrayList();
 
    public class DateCalendar {
@@ -117,10 +121,12 @@ public class CalendarController {
 
     @FXML
     void initialize() {
+        warningText.setVisible(false);
         AddTasksLabel.setOnMouseClicked(e -> {
             try {
+
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -128,7 +134,7 @@ public class CalendarController {
         AllTAsksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -136,7 +142,7 @@ public class CalendarController {
         EditTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -144,6 +150,7 @@ public class CalendarController {
 
         showButton.setOnMouseClicked(e->{
             if(StartTime.getValue() != null && EndTime.getValue() != null && dataEnd.getValue() != null && dataStart.getValue() != null ){
+                warningText.setVisible(false);
                 StringBuffer bufferStart = new StringBuffer();
                 StringBuffer bufferEnd = new StringBuffer();
                 bufferStart.append(dataStart.getValue()).append(" ").append(StartTime.getValue());
@@ -152,44 +159,22 @@ public class CalendarController {
                 try {
                     Date StartD;
                     Date EndD;
-//                    System.out.println(bufferStart);
-//                    System.out.println(bufferEnd);
                     MainTablewithTasks.getItems().clear();
                     StartD = simpleDateFormat.parse(bufferStart.toString());
                     EndD = simpleDateFormat.parse(bufferEnd.toString());
-                    SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar(Main.taskList, StartD, EndD);
+                    SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar(Model.taskList, StartD, EndD);
                     Set data = sortedMap.keySet();
-                    for(Iterator<Date>  iterData = data.iterator(); iterData.hasNext();){
+                    for(Iterator<Date>  iterData = data.iterator(); iterData.hasNext();) {
                         Date date = iterData.next();
                         Set<Task> setTask = sortedMap.get(date);
-                        for(Iterator<Task> iter = setTask.iterator();iter.hasNext();){
+                        for (Iterator<Task> iter = setTask.iterator(); iter.hasNext(); ) {
                             Task task = iter.next();
                             tasksCalendar.add(new DateCalendar(date, task.getTitle(), task.isActive()));
                         }
 
 
-                        //Date date = iterData.next();
-                        //Set<Task> taskSet = sortedMap.get(date);
-
-
-                        ////tasksCalendar.addAll(sortedMap.get(iterData.next()));
-
-
-                        //for(Iterator<Task> taskIterator = taskSet.iterator();taskIterator.hasNext();){
-                        //}
                     }
 
-//                    DateColumn = new TableColumn<>("Date");
-//                    DateColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-//
-//                    TaskDescription = new TableColumn<>("Title");
-//                    TaskDescription.setCellValueFactory(new PropertyValueFactory<>("title"));
-//
-//                    Active = new TableColumn<>("Active");
-//                    Active.setCellValueFactory(new PropertyValueFactory<>("active"));
-
-                   // MainTablewithTasks.getColumns().setAll(DateColumn,TaskDescription,Active);
-                    // MainTablewithTasks.
 
                     dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
@@ -199,11 +184,12 @@ public class CalendarController {
                     MainTablewithTasks.setItems(tasksCalendar);
 
 
-//                    System.out.println(StartD);
-//                    System.out.println(EndD);
                 } catch (ParseException ex){
                     System.out.println(ex);
                 }
+
+            } else {
+                warningText.setVisible(true);
 
             }
 

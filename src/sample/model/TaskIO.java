@@ -221,29 +221,29 @@ public class TaskIO {
                 m = p.matcher(stringTOParse);
                 if (m.find()) {
                     interval = Integer.parseInt(m.group(1)) * 86400;
-                    System.out.println(interval);
+                    //System.out.println(interval);
                 }
                 pattern = "(\\d*) hour|hours";
                 p = Pattern.compile(pattern);
                 m = p.matcher(stringTOParse);
                 if (m.find()) {
                     interval = interval + Integer.parseInt(m.group(1)) * 3600;
-                    System.out.println(interval);
+                    //System.out.println(interval);
                 }
                 pattern = "(\\d*) minute|minutes";
                 p = Pattern.compile(pattern);
                 m = p.matcher(stringTOParse);
                 if (m.find()) {
                     interval = interval + Integer.parseInt(m.group(1)) * 60;
-                    System.out.println(interval);
+                    //System.out.println(interval);
                 }
-                System.out.println(interval);
+                //System.out.println(interval);
                 pattern = "(\\d*) second|seconds";
                 p = Pattern.compile(pattern);
                 m = p.matcher(stringTOParse);
                 if (m.find()) {
                     interval = interval + Integer.parseInt(m.group(1));
-                    System.out.println(interval);
+                    //System.out.println(interval);
                 }
                 Task task = new Task(title, dateStart, dateEnd, interval);
                 task.setActive(active);

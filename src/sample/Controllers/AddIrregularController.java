@@ -15,7 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import sample.Main;
+import javafx.scene.text.Text;
+import sample.model.Model;
 import sample.model.Task;
 
 public class AddIrregularController {
@@ -60,11 +61,18 @@ public class AddIrregularController {
     private ImageView CalendarTasks;
 
     @FXML
+    private Text wrongText;
+
+
+    @FXML
     void initialize() {
+
+        wrongText.setVisible(false);
+
         EditTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -72,7 +80,7 @@ public class AddIrregularController {
         AllTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -80,7 +88,7 @@ public class AddIrregularController {
         CalendarTasks.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -91,7 +99,7 @@ public class AddIrregularController {
         REgularButton.setOnMouseClicked(e ->{
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -99,7 +107,7 @@ public class AddIrregularController {
         CancelButton.setOnMouseClicked(e ->{
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -121,11 +129,15 @@ public class AddIrregularController {
                     Start = simpleDateFormat.parse(bufferStart.toString());
                     Task task = new Task(title, Start);
                     task.setActive(true);
-                    Main.taskList.add(task);
-                }
+                    Model.taskList.add(task);
+
 
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
+                } else {
+                    wrongText.setVisible(true);
+                }
+
             } catch (IOException | ParseException ex) {
                 System.out.println(ex);
             }

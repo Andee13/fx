@@ -1,9 +1,5 @@
 package sample;
-import sample.Main;
-import sample.model.LinkedTaskList;
-import sample.model.Task;
-import sample.model.TaskList;
-import sample.model.Tasks;
+import sample.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +12,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedMap;
 
-public class Scheduler implements  Runnable{
+public class Scheduler implements Runnable{
     public void run() {
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
@@ -52,7 +48,7 @@ public class Scheduler implements  Runnable{
         }catch(AWTException awtException){
             awtException.printStackTrace();
         }
-        System.out.println("end of main");
+
 
 
 
@@ -62,7 +58,7 @@ public class Scheduler implements  Runnable{
             Long temp = new Date().getTime();
             Date StartD = new Date(temp - temp % 60000);
             Date EndD = new Date(new Date().getTime() + 60000);
-            SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar(Main.taskList, StartD, EndD);
+            SortedMap<Date, Set<Task>> sortedMap = Tasks.calendar(Model.taskList, StartD, EndD);
             Set<Date> setKey = sortedMap.keySet();
             for (Iterator<Date> dateIter = setKey.iterator(); dateIter.hasNext(); ) {
                 Date DateKey = dateIter.next();
@@ -76,10 +72,11 @@ public class Scheduler implements  Runnable{
             }
 
             try {
-                Thread.sleep(6000);
+                Thread.sleep(60000);
             } catch (InterruptedException ex) {
                 System.out.println(ex);
             }
         }
+
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.model.Model;
 import sample.model.Task;
 import sample.Main;
 import javafx.scene.image.ImageView;
@@ -61,13 +62,13 @@ public class MainController {
     @FXML
     void initialize() {
 
-        //ObservableList<Task> data = MainTablewithTasks.getItems();
+
         StartDate.setCellValueFactory(new PropertyValueFactory<Task, Date>("startTime"));
         End.setCellValueFactory(new PropertyValueFactory<Task, Date>("EndTime"));
         TitleColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("title"));
         Interval.setCellValueFactory(new PropertyValueFactory<>("RepeatInterval"));
         Active.setCellValueFactory(new PropertyValueFactory<Task, String>("active"));
-        tasksFx.setAll(Main.taskList);
+        tasksFx.setAll(Model.taskList);
         //initData();
 
         MainTablewithTasks.setItems(tasksFx);
@@ -75,7 +76,7 @@ public class MainController {
         AddTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -83,7 +84,7 @@ public class MainController {
         EditTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -91,7 +92,7 @@ public class MainController {
         CalendarTasks.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
-                Main.primaryStage.setScene(scene);
+                Model.primaryStage.setScene(scene);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -99,7 +100,7 @@ public class MainController {
 
     }
     private void initData(){
-        for(Task t: Main.taskList){
+        for(Task t: Model.taskList){
 
             tasksFx.add(t);
         }
