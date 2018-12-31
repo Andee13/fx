@@ -1,12 +1,14 @@
+/**
+ * Package which has all controllers of application.
+ * */
 package sample.Controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
-import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,61 +22,75 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import sample.model.Model;
 import sample.model.Task;
-import sample.model.TaskIO;
-
-import static sample.model.Model.in;
-import static sample.model.Model.taskList;
-
+/**
+ * Logic of execution user actions on this page.
+ * */
 public class AddIrregularController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button irregularTasks;
-
+    /**
+     * Field where user choose time.
+     * */
     @FXML
     private JFXTimePicker TaskTime;
-
+    /**
+     * Field where user type date.
+     * */
     @FXML
     private DatePicker TaskDate;
-
+    /**
+     * Button that change scene on addRegularTask.
+     * */
     @FXML
     private Button REgularButton;
-
+    /**
+     * Image for all Tasks.
+     * */
     @FXML
     private ImageView AllTasksLabel;
-
+    /**
+     * Image for all Edit Menu.
+     * */
     @FXML
     private ImageView EditTasksLabel;
-
+    /**
+     * Button that if pressed add tasks in taskList.
+     * */
     @FXML
     private Button AddTaskButton;
-
+    /**
+     * Text field for title of task.
+     * */
     @FXML
     private TextArea TaskTitle;
-
+    /**
+     * Button for cancel entering task.
+     * */
     @FXML
     private Button CancelButton;
-
-    @FXML
-    private ImageView AddTasksLabel;
-
+    /**
+     * Calendar view.
+     * */
     @FXML
     private ImageView CalendarTasks;
 
+    /**
+     * Shows when user entered wrong data.
+     * */
     @FXML
     private Text wrongText;
 
-
+    /**
+     * Method execute when scene is loaded.
+     * It initialize field and add listeners for buttons.
+     * */
     @FXML
     void initialize() {
-
+        TaskDate.setValue(LocalDate.now());
+        TaskTime.setValue(LocalTime.of(LocalTime.now().getHour() + 1, 0));
         wrongText.setVisible(false);
-
+        /**
+         * If user clicked Edit button, it loads new scene from Controllers.
+         *
+         */
         EditTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/EditTasks.fxml")));
@@ -83,6 +99,10 @@ public class AddIrregularController {
                 System.out.println(ex);
             }
         });
+        /**
+         * If user clicked AllTasksLabel button, it loads new scene from Controllers.
+         *
+         */
         AllTasksLabel.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
@@ -91,6 +111,10 @@ public class AddIrregularController {
                 System.out.println(ex);
             }
         });
+        /**
+         * If user clicked CalendarTasks button, it loads new scene from Controllers.
+         *
+         */
         CalendarTasks.setOnMouseClicked(e -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/CheckCalendar.fxml")));
@@ -99,20 +123,20 @@ public class AddIrregularController {
                 System.out.println(ex);
             }
         });
-
+        /**
+         * Listener that forbid whitespace in the start of the string.
+         */
         TaskTitle.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                /*System.out.println("oldValue = " + oldValue);
-                 */
-                System.out.println("newValue = " + newValue);
-
                 if (newValue.matches("^\\s")) {
                     TaskTitle.setText(newValue.replaceAll("^\\s+", ""));
                 }
             }
         });
-
+        /**
+         * If user clicked REgularButton button, it loads new scene from Controllers.
+         */
         REgularButton.setOnMouseClicked(e ->{
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/AddTasksRegular.fxml")));
@@ -121,6 +145,9 @@ public class AddIrregularController {
                 System.out.println(ex);
             }
         });
+        /**
+         * If user clicked CancelButton button, it loads new scene from Controllers.
+         */
         CancelButton.setOnMouseClicked(e ->{
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
@@ -129,22 +156,17 @@ public class AddIrregularController {
                 System.out.println(ex);
             }
         });
+        /**
+         * If user clicked AddTaskButton button, it checks all field and add new task to the list.
+         * In another case it shows the warring text.
+         * If exception happens it print in console description of it.
+         */
         AddTaskButton.setOnMouseClicked(e ->{
-
-
                 String title = TaskTitle.getText().trim();
                 if (title.length() != 0 && TaskTime.getValue() != null && TaskDate.getValue() != null){
-
-
-
                         StringBuffer bufferStart = new StringBuffer();
-
                         bufferStart.append(TaskDate.getValue()).append(" ").append(TaskTime.getValue());
-
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-
-                        System.out.println(bufferStart);
                         try{
                             Date Start;
                             Start = simpleDateFormat.parse(bufferStart.toString());
@@ -152,26 +174,17 @@ public class AddIrregularController {
                             task.setActive(true);
                             Model.taskList.add(task);
                 } catch (ParseException ex) {
-                System.out.println(ex);
+                    System.out.println(ex);
             }
-
-
-//                    try{
-//                        TaskIO.writeText(taskList, in);
-//                    } catch(IOException ex){
-//                        System.out.println("problem with file " + ex);
-//                    }
-                    try{
-                        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
-                        Model.primaryStage.setScene(scene);
-                    }catch (IOException  ex){
-                        System.out.println(ex);
-                    }
-                } else {
-                    wrongText.setVisible(true);
+                try {
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/fxmlFiles/MainMenu.fxml")));
+                    Model.primaryStage.setScene(scene);
+                }catch (IOException  ex) {
+                    System.out.println(ex);
                 }
-
-
+            } else {
+                wrongText.setVisible(true);
+            }
         });
     }
 }

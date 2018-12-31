@@ -1,4 +1,10 @@
+/**
+ * Package describes model of application.
+ * It is package where user data saved in appropriate data structure,
+ * executed and gives an access to data for another classes of application.
+ * * */
 package sample.model;
+
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,8 +14,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.Duration;
-
+/**
+ * Class provide writing lists in bytes streams and files.
+ * */
 public class TaskIO {
+    /**
+     * Method writes binary list with tasks into stream.
+     * @param tasks - list with tasks.
+     * @param out - stream where list will be recorded.
+     * @exception IOException - if file doesn't exit or doesn't opened.*/
     public static void write(List tasks, OutputStream out) throws IOException {
         DataOutputStream outputStream = new DataOutputStream(out);
         try {
@@ -33,6 +46,11 @@ public class TaskIO {
             outputStream.close();
         }
     }
+    /**
+     * Method reads binary  list from input stream into list.
+     * @param tasks - list where tasks saves.
+     * @param in - stream from what task reads.
+     * @exception IOException - if file doesn't exit or doesn't opened.*/
     public  static void read(List tasks, InputStream in) throws IOException {
         DataInputStream inputStream =  new DataInputStream(in);
         try {
@@ -61,6 +79,11 @@ public class TaskIO {
             inputStream.close();
         }
     }
+    /**
+     * Method writes binary list with tasks into stream.
+     * @param tasks - list with tasks.
+     * @param file - file where list will be recorded.
+     * @exception IOException - if file doesn't exit or doesn't opened.*/
     public static void writeBinary(List tasks, File file) throws IOException {
         BufferedOutputStream bOS = new BufferedOutputStream(new FileOutputStream(file));
         try {
@@ -70,6 +93,11 @@ public class TaskIO {
         }
 
     }
+    /**
+     * Method reads binary list from input stream into list.
+     * @param tasks - list where tasks saves.
+     * @param file- file from what task reads.
+     * @exception IOException - if file doesn't exit or doesn't opened.*/
     public  static void readBinary(List tasks, File file) throws IOException {
         BufferedInputStream bIS = new BufferedInputStream( new FileInputStream(file));
         try {
@@ -80,6 +108,14 @@ public class TaskIO {
         }
     }
 
+
+
+    /**
+     * Method writes  list with tasks into stream in text format.
+     * @param tasks - list with tasks.
+     * @param out - writer stream where list will be recorded.
+     * @exception IOException - if file doesn't exit or doesn't opened.
+     * */
     public  static  void write(List tasks, Writer out) throws  IOException {
         BufferedWriter writer  = new BufferedWriter(out);
         try {
@@ -162,6 +198,13 @@ public class TaskIO {
             writer.close();
         }
     }
+    /**
+     * Method reads  list from input stream into list in text format.
+     * @param tasks - list where tasks saves.
+     * @param in - reader stream from what task reads.
+     * @exception IOException - if file doesn't exit or doesn't opened.
+     * @exception ParseException - if parse string doesn't correspond format
+     * */
     public static void read(List tasks, Reader in) throws  IOException, ParseException {
         BufferedReader bufferedReader = new BufferedReader(in);
         String readString = bufferedReader.readLine();      
@@ -253,6 +296,12 @@ public class TaskIO {
        }
        
     }
+    /**
+     * Method writes  list with tasks into stream in text format.
+     * @param tasks - list with tasks.
+     * @param file - file where list will be recorded.
+     * @exception IOException - if file doesn't exit or doesn't opened.
+     * */
     public static  void writeText(List tasks, File file) throws  IOException {
         BufferedWriter out = null;
         try {
@@ -263,6 +312,13 @@ public class TaskIO {
             out.close();
         }
     }
+    /**
+     * Method reads binary list from input stream into list.
+     * @param tasks - list where tasks saves.
+     * @param file - file from what task reads.
+     * @exception IOException - if file doesn't exit or doesn't opened.
+     * @exception ParseException - if parse string doesn't correspond format
+     * */
     public static void readText(List tasks, File file) throws  IOException, ParseException  {
         BufferedReader in = null;
         try {

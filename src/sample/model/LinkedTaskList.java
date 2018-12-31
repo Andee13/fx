@@ -1,22 +1,40 @@
+/**
+ * Package describes model of application.
+ * It is package where user data saved in appropriate data structure,
+ * executed and gives an access to data for another classes of application.
+ * * */
 package sample.model;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+/**
+ * Class that describe structure of LinkedTaskList
+ * */
 public class LinkedTaskList extends TaskList implements Cloneable {
         private Node first;
         private Node last;
         private int count = 0;
+        /**
+         * Class that describe Node of list
+         * */
         private class Node implements  Cloneable {
             private Task task;
             private Node next;
-
+/**
+ * Empty constructor
+ * */
             public Node() {}
-            
+            /**
+             * Constructor of Node
+             * @param task - task that saves in node
+             * */
             public Node( Task task ) {
                 this.task = task;
             }
-            
+            /**
+             * Method clone Node
+             * @return Node - exact copy of this Node
+             * */
             @Override
             public Node clone(){
             try{
@@ -28,7 +46,10 @@ public class LinkedTaskList extends TaskList implements Cloneable {
             }
            }
         }
-
+/**
+ * Method add task to task list
+ * @param task - task to add
+ * */
         public void add(Task task) {
                 if(task == null){
                         throw new IllegalArgumentException("Task = null");
@@ -46,7 +67,10 @@ public class LinkedTaskList extends TaskList implements Cloneable {
                 }
 
         }
-
+    /**
+     * Method add task to task list
+     * @param task - task to remove
+     * */
         public boolean remove(Task task){
                 Node tempFather = first;
                 Node tempSon = first.next;
@@ -77,11 +101,16 @@ public class LinkedTaskList extends TaskList implements Cloneable {
                 }
                 return false;
         }
-
+    /**
+     * Method returns size of list
+     * */
         public int size() {
                 return count;
         }
-
+    /**
+     * Method returns task by index
+     * @param index - number in list of task.
+     * */
         public Task getTask(int index) {
                 Node temp = first;
                 int counter = 0;
@@ -136,12 +165,17 @@ public class LinkedTaskList extends TaskList implements Cloneable {
             isNext = false;
         }
     }
-
+    /**
+     * Method returns iterator
+     * */
     @Override
     public Iterator<Task> iterator() {
         return new Iter();
     }
-    
+    /**
+     * Method clone ArrayList
+     * @return ArrayTaskList - exact copy of this task list
+     * */
     @Override
     public LinkedTaskList clone() {
         LinkedTaskList obj = (LinkedTaskList)super.clone();           
